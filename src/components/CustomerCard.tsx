@@ -7,7 +7,7 @@ import { generateCustomerPDF } from '../utils/pdfGenerator';
 
 interface CustomerCardProps {
   customer: Customer;
-  onAddOrder: (customerId: string, itemName: string, quantity: number, price: number) => Promise<void>;
+  onAddOrder: (customerId: string, price: number) => Promise<void>;
   onDeleteCustomer: (customerId: string) => Promise<void>;
   onUpdateCustomer: (customerId: string, updates: Partial<Customer>) => Promise<void>;
   onDeleteOrder: (customerId: string, orderId: string) => Promise<void>;
@@ -123,7 +123,7 @@ export function CustomerCard({
         </div>
       </div>
 
-      <NewOrderForm onSubmit={(itemName, quantity, price) => onAddOrder(customer.id, itemName, quantity, price)} />
+      <NewOrderForm onSubmit={(price) => onAddOrder(customer.id, price)} />
       <OrderList orders={customer.orders} onDeleteOrder={(orderId) => onDeleteOrder(customer.id, orderId)} />
     </div>
   );

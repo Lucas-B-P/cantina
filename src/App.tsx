@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Download, Loader2, Trash2 } from 'lucide-react';
+import { Plus, Download, Loader2 } from 'lucide-react';
 import { useDatabase } from './hooks/useDatabase';
 import { CustomerList } from './components/CustomerList';
 import { SearchBar } from './components/SearchBar';
@@ -31,18 +31,16 @@ function App() {
     }
   };
 
-  const handleAddOrder = async (customerId: string, itemName: string, quantity: number, price: number) => {
+  const handleAddOrder = async (customerId: string, price: number) => {
     try {
-      const orderItem = {
-        id: crypto.randomUUID(),
-        name: itemName,
-        quantity,
-        price
-      };
-
       await addOrder(customerId, {
-        items: [orderItem],
-        total: quantity * price
+        items: [{
+          id: crypto.randomUUID(),
+          name: 'Item',
+          quantity: 1,
+          price
+        }],
+        total: price
       });
     } catch (err) {
       console.error('Failed to add order:', err);

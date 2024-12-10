@@ -34,13 +34,6 @@ export function OrderList({ orders, onDeleteOrder }: OrderListProps) {
                 </button>
               </div>
             </div>
-            <div className="mt-2">
-              {order.items.map(item => (
-                <div key={item.id} className="text-sm text-gray-600 break-words">
-                  {item.quantity}x {item.name || 'Item sem nome'} - R$ {(item.price * item.quantity).toFixed(2)}
-                </div>
-              ))}
-            </div>
           </div>
         ))}
       </div>

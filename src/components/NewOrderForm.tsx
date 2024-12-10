@@ -1,22 +1,17 @@
 import React, { useState } from 'react';
 
 interface NewOrderFormProps {
-  onSubmit: (itemName: string, quantity: number, price: number) => Promise<void>;
+  onSubmit: (price: number) => Promise<void>;
 }
 
 export function NewOrderForm({ onSubmit }: NewOrderFormProps) {
-  const [itemName, setItemName] = useState('');
-  const [quantity, setQuantity] = useState('1');
   const [price, setPrice] = useState('');
 
   const handleSubmit = async () => {
-    const quantityNum = parseInt(quantity, 10);
     const priceNum = parseFloat(price);
     
-    if (!isNaN(quantityNum) && !isNaN(priceNum)) {
-      await onSubmit(itemName || 'Item sem nome', quantityNum, priceNum);
-      setItemName('');
-      setQuantity('1');
+    if (!isNaN(priceNum)) {
+      await onSubmit(priceNum);
       setPrice('');
     }
   };
@@ -25,22 +20,6 @@ export function NewOrderForm({ onSubmit }: NewOrderFormProps) {
     <div className="mb-4">
       <h3 className="font-semibold mb-2">Adicionar Pedido</h3>
       <div className="flex flex-col sm:flex-row gap-4">
-        <input
-          type="text"
-          placeholder="Nome do item (opcional)"
-          value={itemName}
-          onChange={(e) => setItemName(e.target.value)}
-          className="flex-1 p-2 border border-gray-300 rounded-lg"
-        />
-        <input
-          type="number"
-          min="1"
-          placeholder="Qtd"
-          value={quantity}
-          onChange={(e) => setQuantity(e.target.value)}
-          className="w-full sm:w-24 p-2 border border-gray-300 rounded-lg"
-          required
-        />
         <input
           type="number"
           min="0"
